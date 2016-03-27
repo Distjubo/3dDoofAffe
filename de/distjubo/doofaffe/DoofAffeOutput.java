@@ -112,6 +112,19 @@ public class DoofAffeOutput implements Closeable
 
 	/**
 	 * Writes a single entry to the underlying {@link OutputStream}.
+	 * 
+	 * @param content
+	 *            the content of the entry that will be written
+	 * @throws IOException
+	 *             if an {@link IOException} occurs while writing
+	 */
+	public void writeEntry(byte[] content) throws IOException
+	{
+		this.writeEntry(null, content);
+	}
+
+	/**
+	 * Writes a single entry to the underlying {@link OutputStream}.
 	 *
 	 * @param descriptor
 	 *            the descriptor of the entry (e.g. MIME-type)
@@ -127,7 +140,8 @@ public class DoofAffeOutput implements Closeable
 			this.writeHead();
 		}
 		this.checkWrite();
-		byte[] mimeBytes = descriptor.getBytes(CHARSET);
+		byte[] mimeBytes = descriptor == null ? new byte[0] : descriptor.getBytes(CHARSET);
+		content = content == null ? new byte[0] : content;
 		this.os.write(intToByteArray(mimeBytes.length, this.fourByteBuffer));
 		this.os.write(mimeBytes);
 		this.os.write(intToByteArray(getChecksum(content), this.fourByteBuffer));
