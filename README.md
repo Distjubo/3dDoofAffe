@@ -1,4 +1,4 @@
-# 3dDoofAffe
+# DoofAffe
 A repository for storing multiple sets of data in one file. Named after its header bytes (0x3dD00fAffe).
 The descriptor may contain anything you want. It is stored as a UTF-8 string in the file.
 The content (not the descriptor) is automatically checksummed with CRC-32.
